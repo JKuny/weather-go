@@ -2,3 +2,6 @@ app:
   name: weather-go
   version: v0.0.1
   source: open-meteo
+  default-location:
+    latitude: 43.100903
+    longitude: -75.232666

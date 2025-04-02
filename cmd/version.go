@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 func init() {
@@ -15,6 +16,6 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number for weather-go",
 	Long:  `Print the version number for weather-go`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("v0.0.1")
+		fmt.Println(viper.GetString("app.version"))
 	},
 }

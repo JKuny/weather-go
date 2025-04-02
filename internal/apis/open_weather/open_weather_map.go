@@ -4,8 +4,10 @@ import (
 	"net/http"
 )
 
+var baseUrl = "https://jameskuny.com/"
+
 func GetCurrentWeather() string {
-	resp, err := http.Get("https://jameskuny.com/")
+	resp, err := http.Get(baseUrl)
 	if err != nil {
 		return ""
 	}
