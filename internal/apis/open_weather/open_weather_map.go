@@ -1,3 +1,7 @@
+// Package open_weather
+/*
+Copyright © 2025 James Kuny <james.kuny@yahoo.com>
+*/
 package open_weather
 
 import (

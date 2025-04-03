@@ -1,3 +1,7 @@
+// Package open_meteo
+/*
+Copyright © 2025 James Kuny <james.kuny@yahoo.com>
+*/
 package open_meteo
 
 import (

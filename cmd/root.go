@@ -1,3 +1,8 @@
+// Package cmd
+/*
+Copyright © 2025 James Kuny <james.kuny@yahoo.com>
+*/
+
 package cmd
 
 import (
@@ -5,14 +10,14 @@ import (
 	"log"
 	"os"
 
+	"github.com/jkuny/weather-go/internal/apis/open_meteo"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"weather-go/internal/apis/open_meteo"
 )
 
 var rootCmd = &cobra.Command{
 	Use:   "weather-go",
-	Short: "weather-go is a small CLI weather application",
+	Short: "Retrieve the immediate forecast for the default latitude/longitude configured with the application",
 	Long: `A CLI weather application in Go. Allows for displaying the current weather
 in multiple locations via multiple APIs.`,
 	Run: func(cmd *cobra.Command, args []string) {
@@ -30,7 +35,7 @@ in multiple locations via multiple APIs.`,
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		_, _ = fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 }

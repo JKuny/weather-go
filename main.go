@@ -1,10 +1,14 @@
+// Package main
+/*
+Copyright © 2025 James Kuny <james.kuny@yahoo.com>
+*/
 package main
 
 import (
 	"log"
 
+	"github.com/jkuny/weather-go/cmd"
 	"github.com/spf13/viper"
-	"weather-go/cmd"
 )
 
 type Configuration struct {

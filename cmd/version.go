@@ -1,3 +1,7 @@
+// Package cmd
+/*
+Copyright © 2025 James Kuny <james.kuny@yahoo.com>
+*/
 package cmd
 
 import (
