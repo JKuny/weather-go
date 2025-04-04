@@ -8,12 +8,13 @@ import (
 	"log"
 
 	"github.com/jkuny/weather-go/internal/display"
+	"github.com/jkuny/weather-go/internal/validation"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
 var printConfig = &cobra.Command{
-	Use:   "print-config",
+	Use:   "print",
 	Short: "Print the current configuration",
 	Long:  `Print the current configuration file values in a human readable format.`,
 	Run: func(cmd *cobra.Command, args []string) {
@@ -39,11 +40,16 @@ Weather website source to use.`,
 		latitude, _ := cmd.Flags().GetString("latitude")
 		longitude, _ := cmd.Flags().GetString("longitude")
 
-		// TODO: Validate the values passed in to be valid latitude/longitude
+		// Validate the values passed in to be valid latitude/longitude
+		_, err := validation.ValidateLatLong(latitude, longitude)
+		if err != nil {
+			log.Fatalln(err)
+		}
 
+		// Update the config file's values
 		viper.Set("app.default-location.latitude", latitude)
 		viper.Set("app.default-location.longitude", longitude)
-		err := viper.WriteConfig()
+		err = viper.WriteConfig()
 		if err != nil {
 			log.Fatalln("Issue saving the configuration file:", err)
 		}
@@ -51,8 +57,8 @@ Weather website source to use.`,
 }
 
 func init() {
-	rootCmd.AddCommand(printConfig)
 	rootCmd.AddCommand(configureCmd)
+	configureCmd.AddCommand(printConfig)
 
 	configureCmd.Flags().StringP("latitude", "l", "", "set the default latitude")
 	configureCmd.Flags().StringP("longitude", "g", "", "set the default longitude")
