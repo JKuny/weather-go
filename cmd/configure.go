@@ -5,10 +5,26 @@ Copyright © 2025 James Kuny <james.kuny@yahoo.com>
 package cmd
 
 import (
-	"fmt"
+	"log"
 
+	"github.com/jkuny/weather-go/internal/display"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
+
+var printConfig = &cobra.Command{
+	Use:   "print-config",
+	Short: "Print the current configuration",
+	Long:  `Print the current configuration file values in a human readable format.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		settings := viper.AllSettings()
+		keys := make([]string, 0, len(settings))
+		for k := range settings {
+			keys = append(keys, k)
+		}
+		display.PrintMap(settings, "")
+	},
+}
 
 // configureCmd represents the configure command
 var configureCmd = &cobra.Command{
@@ -18,21 +34,38 @@ var configureCmd = &cobra.Command{
 
 Default latitude/longitude to get weather for.
 Weather website source to use.`,
+	Args: cobra.ArbitraryArgs,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("configure called")
+		latitude, _ := cmd.Flags().GetString("latitude")
+		longitude, _ := cmd.Flags().GetString("longitude")
+
+		// TODO: Validate the values passed in to be valid latitude/longitude
+
+		viper.Set("app.default-location.latitude", latitude)
+		viper.Set("app.default-location.longitude", longitude)
+		err := viper.WriteConfig()
+		if err != nil {
+			log.Fatalln("Issue saving the configuration file:", err)
+		}
 	},
 }
 
 func init() {
+	rootCmd.AddCommand(printConfig)
 	rootCmd.AddCommand(configureCmd)
 
-	// Here you will define your flags and configuration settings.
+	configureCmd.Flags().StringP("latitude", "l", "", "set the default latitude")
+	configureCmd.Flags().StringP("longitude", "g", "", "set the default longitude")
+	configureCmd.MarkFlagsRequiredTogether("latitude", "longitude")
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// configureCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// Bind the default-location values to the flags
+	err := viper.BindPFlag("app.default-location.latitude", configureCmd.Flags().Lookup("latitude"))
+	if err != nil {
+		log.Fatalln(err)
+	}
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// configureCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	err = viper.BindPFlag("app.default-location.latitude", configureCmd.Flags().Lookup("latitude"))
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
