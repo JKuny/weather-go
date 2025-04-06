@@ -29,7 +29,17 @@ in multiple locations via multiple APIs.`,
 		}
 
 		fmt.Printf("Getting weather for %s/%s...\n", defaultLatitude, defaultLongitude)
-		fmt.Println(open_meteo.GetCurrentWeather(defaultLatitude, defaultLongitude))
+		body, err := open_meteo.GetCurrentWeather(defaultLatitude, defaultLongitude)
+		if err != nil {
+			log.Fatalf("Error while getting weather from OpenMeteo: %s", err)
+		}
+
+		formattedData, err := open_meteo.ParseData(body)
+		if err != nil {
+			log.Fatalf("Error while parsing weather data: %s", err)
+		}
+
+		fmt.Println(formattedData)
 	},
 }
 
