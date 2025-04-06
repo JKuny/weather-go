@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Test" type="GoTestRunConfiguration" factoryName="Go Test">
+    <module name="weather-go" />
+    <working_directory value="$PROJECT_DIR$" />
+    <go_parameters value="-v -cover" />
+    <kind value="DIRECTORY" />
+    <package value="github.com/jkuny/weather-go" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$" />
+    <framework value="gotest" />
+    <pattern value="./..." />
+    <method v="2" />
+  </configuration>
+</component>
