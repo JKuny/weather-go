@@ -5,6 +5,7 @@ Copyright © 2025 James Kuny <james.kuny@yahoo.com>
 package open_meteo
 
 import (
+	"encoding/json"
 	"io"
 	"log"
 	"net/http"
@@ -73,8 +74,13 @@ func GetCurrentWeather(latitude string, longitude string) (string, error) {
 	return string(body), nil
 }
 
-// ParseData Parses a OpenMeteo JSON return into something more display friendly
-func ParseData(body string) (string, error) {
-
-	return "", nil
+// ParseData Parses a OpenMeteo JSON return into something more display friendly.
+func ParseData(body string) (Weather, error) {
+	var weather Weather
+	err := json.Unmarshal([]byte(body), &weather)
+	if err != nil {
+		log.Fatalf("Issue parsing JSON: %s", err)
+		return Weather{}, err
+	}
+	return weather, nil
 }

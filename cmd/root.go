@@ -34,12 +34,12 @@ in multiple locations via multiple APIs.`,
 			log.Fatalf("Error while getting weather from OpenMeteo: %s", err)
 		}
 
-		formattedData, err := open_meteo.ParseData(body)
+		weather, err := open_meteo.ParseData(body)
 		if err != nil {
 			log.Fatalf("Error while parsing weather data: %s", err)
 		}
 
-		fmt.Println(formattedData)
+		fmt.Printf("Temprature: %v %s", weather.Hourly.Temperature[0], weather.HourlyUnits.TemperatureUnits)
 	},
 }
 
