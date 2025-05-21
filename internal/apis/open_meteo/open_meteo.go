@@ -74,7 +74,7 @@ func GetCurrentWeather(latitude string, longitude string) (string, error) {
 	return string(body), nil
 }
 
-// ParseData Parses a OpenMeteo JSON return into something more display friendly.
+// ParseData Parses an OpenMeteo JSON return into something more display-friendly.
 func ParseData(body string) (Weather, error) {
 	var weather Weather
 	err := json.Unmarshal([]byte(body), &weather)
