@@ -14,11 +14,11 @@ import (
 
 // Declare variables to hold names of data to retrieve
 var (
-	temperature          string = "temperature_2m"
-	precipitation        string = "precipitation_probability"
-	precipitation_amount string = "precipitation"
-	weather_code         string = "weather_code"
-	wind_speed           string = "wind_speed_10m"
+	temperature         = "temperature_2m"
+	precipitation       = "precipitation_probability"
+	precipitationAmount = "precipitation"
+	weatherCode         = "weather_code"
+	windSpeed           = "wind_speed_10m"
 )
 
 var baseUrl = "https://api.open-meteo.com/v1/forecast"
@@ -39,9 +39,9 @@ func GetCurrentWeather(latitude string, longitude string) (string, error) {
 		"hourly": {
 			temperature,
 			precipitation,
-			precipitation_amount,
-			weather_code,
-			wind_speed,
+			precipitationAmount,
+			weatherCode,
+			windSpeed,
 		},
 	}.Encode()
 
