@@ -28,6 +28,7 @@ in multiple locations via multiple APIs.`,
 			log.Fatal("Latitude/Longitude not configured.")
 		}
 
+		fmt.Println("---- OpenMeteo -----------------------------")
 		fmt.Printf("Getting weather for %s/%s...\n", defaultLatitude, defaultLongitude)
 		body, err := open_meteo.GetCurrentWeather(defaultLatitude, defaultLongitude)
 		if err != nil {
@@ -39,7 +40,7 @@ in multiple locations via multiple APIs.`,
 			log.Fatalf("Error while parsing weather data: %s", err)
 		}
 
-		fmt.Printf("Temprature: %v %s", weather.Hourly.Temperature[0], weather.HourlyUnits.TemperatureUnits)
+		open_meteo.DisplayWeather(weather)
 	},
 }
 
