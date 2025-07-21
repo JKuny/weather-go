@@ -30,7 +30,7 @@ in multiple locations via multiple APIs.`,
 
 		fmt.Println("---- OpenMeteo -----------------------------")
 		fmt.Printf("Getting weather for %s/%s...\n", defaultLatitude, defaultLongitude)
-		body, err := open_meteo.GetCurrentWeather(defaultLatitude, defaultLongitude)
+		body, err := open_meteo.GetForecast(defaultLatitude, defaultLongitude)
 		if err != nil {
 			log.Fatalf("Error while getting weather from OpenMeteo: %s", err)
 		}
@@ -40,7 +40,7 @@ in multiple locations via multiple APIs.`,
 			log.Fatalf("Error while parsing weather data: %s", err)
 		}
 
-		open_meteo.DisplayWeather(weather)
+		open_meteo.DisplayForecast(weather)
 	},
 }
 

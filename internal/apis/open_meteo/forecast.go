@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type Weather struct {
+type Forecast struct {
 	Latitude         float64 `json:"latitude"`
 	Longitude        float64 `json:"longitude"`
 	GenerationTimeMs float64 `json:"generationtime_ms"`
@@ -23,15 +23,17 @@ type Weather struct {
 	} `json:"hourly"`
 }
 
-// DisplayWeather displays a display-friendly version of the Weather struct
-func DisplayWeather(weather Weather) {
-	fmt.Printf("Latitude: %v, %v\n", weather.Latitude, weather.Longitude)
+// DisplayForecast displays a display-friendly version of the Forecast struct
+func DisplayForecast(forecast Forecast) {
+	fmt.Printf("Latitude: %v, %v\n", forecast.Latitude, forecast.Longitude)
 
 	fmt.Println("Temperature:")
-	for i := 0; i < len(weather.Hourly.Time); i++ {
-		fmt.Printf("     %v     ---     %v %s\n", convertTime(weather.Hourly.Time[i]+" "+weather.TimezoneAbbrev), weather.Hourly.Temperature[i], weather.HourlyUnits.TemperatureUnits)
+	for i := range forecast.Hourly.Time {
+		if i%10 == 0 {
+			fmt.Printf("     %v     ---     %v %s\n", convertTime(forecast.Hourly.Time[i]+" "+forecast.TimezoneAbbrev), forecast.Hourly.Temperature[i], forecast.HourlyUnits.TemperatureUnits)
+		}
 	}
-	fmt.Printf("Elevation: %v \n", weather.Elevation)
+	fmt.Printf("Elevation: %v \n", forecast.Elevation)
 }
 
 func convertTime(timeStr string) string {

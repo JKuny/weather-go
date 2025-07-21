@@ -10,7 +10,7 @@ import (
 
 var baseUrl = "https://jameskuny.com/"
 
-func GetCurrentWeather() string {
+func GetForecast() string {
 	resp, err := http.Get(baseUrl)
 	if err != nil {
 		return ""
