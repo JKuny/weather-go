@@ -23,8 +23,8 @@ var (
 
 var baseUrl = "https://api.open-meteo.com/v1/forecast"
 
-// GetCurrentWeather Gets the current weather forecast for the next two minutes
-func GetCurrentWeather(latitude string, longitude string) (string, error) {
+// GetForecast Gets the current weather forecast for the next two minutes
+func GetForecast(latitude string, longitude string) (string, error) {
 	client := &http.Client{}
 	endpoint, err := url.Parse(baseUrl)
 	if err != nil {
@@ -75,12 +75,12 @@ func GetCurrentWeather(latitude string, longitude string) (string, error) {
 }
 
 // ParseData Parses an OpenMeteo JSON return into something more display-friendly.
-func ParseData(body string) (Weather, error) {
-	var weather Weather
-	err := json.Unmarshal([]byte(body), &weather)
+func ParseData(body string) (Forecast, error) {
+	var forecast Forecast
+	err := json.Unmarshal([]byte(body), &forecast)
 	if err != nil {
 		log.Fatalf("Issue parsing JSON: %s", err)
-		return Weather{}, err
+		return Forecast{}, err
 	}
-	return weather, nil
+	return forecast, nil
 }
