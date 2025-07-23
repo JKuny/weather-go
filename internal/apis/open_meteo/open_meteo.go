@@ -14,17 +14,19 @@ import (
 
 // Declare variables to hold names of data to retrieve
 var (
-	temperature         = "temperature_2m"
-	precipitation       = "precipitation_probability"
-	precipitationAmount = "precipitation"
-	weatherCode         = "weather_code"
-	windSpeed           = "wind_speed_10m"
+	elevation                = "elevation"
+	precipitation            = "precipitation"
+	precipitationProbability = "precipitation_probability"
+	relative_humidity_2m     = "relative_humidity_2m"
+	temperature              = "temperature_2m"
+	weatherCode              = "weather_code"
+	windSpeed                = "wind_speed_10m"
 )
 
 var baseUrl = "https://api.open-meteo.com/v1/forecast"
 
 // GetForecast Gets the current weather forecast for the next two minutes
-func GetForecast(latitude string, longitude string) (string, error) {
+func GetForecast(latitude string, longitude string, numberOfDays string) (string, error) {
 	client := &http.Client{}
 	endpoint, err := url.Parse(baseUrl)
 	if err != nil {
@@ -34,14 +36,20 @@ func GetForecast(latitude string, longitude string) (string, error) {
 
 	// Encode a set of parameters into the URL
 	endpoint.RawQuery = url.Values{
-		"latitude":  {latitude},
-		"longitude": {longitude},
+		"latitude":           {latitude},
+		"longitude":          {longitude},
+		"forecast_days":      {numberOfDays},
+		"wind_speed_unit":    {"mph"},
+		"temperature_unit":   {"fahrenheit"},
+		"precipitation_unit": {"inch"},
 		"hourly": {
 			temperature,
+			precipitationProbability,
 			precipitation,
-			precipitationAmount,
 			weatherCode,
 			windSpeed,
+			weatherCode,
+			relative_humidity_2m,
 		},
 	}.Encode()
 

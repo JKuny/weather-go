@@ -23,6 +23,7 @@ in multiple locations via multiple APIs.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		defaultLatitude := viper.GetString("app.default-location.latitude")
 		defaultLongitude := viper.GetString("app.default-location.longitude")
+		defaultNumberOfDays := "1"
 
 		if defaultLatitude == "" || defaultLongitude == "" {
 			log.Fatal("Latitude/Longitude not configured.")
@@ -30,7 +31,7 @@ in multiple locations via multiple APIs.`,
 
 		fmt.Println("---- OpenMeteo -----------------------------")
 		fmt.Printf("Getting weather for %s/%s...\n", defaultLatitude, defaultLongitude)
-		body, err := open_meteo.GetForecast(defaultLatitude, defaultLongitude)
+		body, err := open_meteo.GetForecast(defaultLatitude, defaultLongitude, defaultNumberOfDays)
 		if err != nil {
 			log.Fatalf("Error while getting weather from OpenMeteo: %s", err)
 		}
@@ -40,7 +41,7 @@ in multiple locations via multiple APIs.`,
 			log.Fatalf("Error while parsing weather data: %s", err)
 		}
 
-		open_meteo.DisplayForecast(weather)
+		open_meteo.DisplayForecast(weather, defaultNumberOfDays)
 	},
 }
 
