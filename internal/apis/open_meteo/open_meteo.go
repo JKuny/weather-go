@@ -14,13 +14,11 @@ import (
 
 // Declare variables to hold names of data to retrieve
 var (
-	elevation                = "elevation"
-	precipitation            = "precipitation"
-	precipitationProbability = "precipitation_probability"
-	relative_humidity_2m     = "relative_humidity_2m"
-	temperature              = "temperature_2m"
-	weatherCode              = "weather_code"
-	windSpeed                = "wind_speed_10m"
+	temperature_2m            = "temperature_2m"
+	precipitation_probability = "precipitation_probability"
+	weather_code              = "weather_code"
+	precipitation             = "precipitation"
+	relative_humidity_2m      = "relative_humidity_2m"
 )
 
 var baseUrl = "https://api.open-meteo.com/v1/forecast"
@@ -43,12 +41,10 @@ func GetForecast(latitude string, longitude string, numberOfDays string) (string
 		"temperature_unit":   {"fahrenheit"},
 		"precipitation_unit": {"inch"},
 		"hourly": {
-			temperature,
-			precipitationProbability,
+			temperature_2m,
+			precipitation_probability,
+			weather_code,
 			precipitation,
-			weatherCode,
-			windSpeed,
-			weatherCode,
 			relative_humidity_2m,
 		},
 	}.Encode()
