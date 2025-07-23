@@ -24,16 +24,16 @@ type Forecast struct {
 }
 
 // DisplayForecast displays a display-friendly version of the Forecast struct
-func DisplayForecast(forecast Forecast) {
-	fmt.Printf("Latitude: %v, %v\n", forecast.Latitude, forecast.Longitude)
-
-	fmt.Println("Temperature:")
-	for i := range forecast.Hourly.Time {
-		if i%10 == 0 {
-			fmt.Printf("     %v     ---     %v %s\n", convertTime(forecast.Hourly.Time[i]+" "+forecast.TimezoneAbbrev), forecast.Hourly.Temperature[i], forecast.HourlyUnits.TemperatureUnits)
-		}
-	}
+func DisplayForecast(forecast Forecast, numberOfDays string) {
 	fmt.Printf("Elevation: %v \n", forecast.Elevation)
+	fmt.Printf("Forecast for the next %s day(s):\n", numberOfDays)
+	for i := range forecast.Hourly.Time {
+		fmt.Printf("     %v --- %v --- %.1f %s\n",
+			convertTime(forecast.Hourly.Time[i]+" "+forecast.TimezoneAbbrev),
+			forecast.Hourly.,
+			forecast.Hourly.Temperature[i],
+			forecast.HourlyUnits.TemperatureUnits)
+	}
 }
 
 func convertTime(timeStr string) string {
