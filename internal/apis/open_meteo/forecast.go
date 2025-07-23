@@ -14,12 +14,14 @@ type Forecast struct {
 	TimezoneAbbrev   string  `json:"timezone_abbreviation"`
 	Elevation        float64 `json:"elevation"`
 	HourlyUnits      struct {
-		Time             string `json:"time"`
-		TemperatureUnits string `json:"temperature_2m"`
+		Time                     string `json:"time"`
+		TemperatureUnits         string `json:"temperature_2m"`
+		PrecipitationProbability string `json:"precipitation_probability"`
 	} `json:"hourly_units"`
 	Hourly struct {
-		Time        []string  `json:"time"`
-		Temperature []float64 `json:"temperature_2m"`
+		Time                     []string  `json:"time"`
+		Temperature              []float64 `json:"temperature_2m"`
+		PrecipitationProbability []float64 `json:"precipitation_probability"`
 	} `json:"hourly"`
 }
 
@@ -28,11 +30,12 @@ func DisplayForecast(forecast Forecast, numberOfDays string) {
 	fmt.Printf("Elevation: %v \n", forecast.Elevation)
 	fmt.Printf("Forecast for the next %s day(s):\n", numberOfDays)
 	for i := range forecast.Hourly.Time {
-		fmt.Printf("     %v --- %v --- %.1f %s\n",
+		fmt.Printf("     %v --- %.1f %s --- %v%% \n",
 			convertTime(forecast.Hourly.Time[i]+" "+forecast.TimezoneAbbrev),
-			forecast.Hourly.,
 			forecast.Hourly.Temperature[i],
-			forecast.HourlyUnits.TemperatureUnits)
+			forecast.HourlyUnits.TemperatureUnits,
+			forecast.Hourly.PrecipitationProbability[i],
+		)
 	}
 }
 
