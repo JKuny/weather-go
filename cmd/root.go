@@ -7,6 +7,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/jkuny/weather-go/internal/apis/open_meteo/model"
 	"log"
 	"os"
 
@@ -41,7 +42,7 @@ in multiple locations via multiple APIs.`,
 			log.Fatalf("Error while parsing weather data: %s", err)
 		}
 
-		open_meteo.DisplayForecast(weather, defaultNumberOfDays)
+		model.DisplayForecast(weather, defaultNumberOfDays)
 	},
 }
 

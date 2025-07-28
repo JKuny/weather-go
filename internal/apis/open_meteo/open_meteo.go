@@ -6,6 +6,7 @@ package open_meteo
 
 import (
 	"encoding/json"
+	"github.com/jkuny/weather-go/internal/apis/open_meteo/model"
 	"io"
 	"log"
 	"net/http"
@@ -19,6 +20,7 @@ var (
 	weather_code              = "weather_code"
 	precipitation             = "precipitation"
 	relative_humidity_2m      = "relative_humidity_2m"
+	timezone                  = "EST"
 )
 
 var baseUrl = "https://api.open-meteo.com/v1/forecast"
@@ -40,6 +42,7 @@ func GetForecast(latitude string, longitude string, numberOfDays string) (string
 		"wind_speed_unit":    {"mph"},
 		"temperature_unit":   {"fahrenheit"},
 		"precipitation_unit": {"inch"},
+		"timezone":           {timezone},
 		"hourly": {
 			temperature_2m,
 			precipitation_probability,
@@ -79,12 +82,12 @@ func GetForecast(latitude string, longitude string, numberOfDays string) (string
 }
 
 // ParseData Parses an OpenMeteo JSON return into something more display-friendly.
-func ParseData(body string) (Forecast, error) {
-	var forecast Forecast
+func ParseData(body string) (model.Forecast, error) {
+	var forecast model.Forecast
 	err := json.Unmarshal([]byte(body), &forecast)
 	if err != nil {
 		log.Fatalf("Issue parsing JSON: %s", err)
-		return Forecast{}, err
+		return model.Forecast{}, err
 	}
 	return forecast, nil
 }
