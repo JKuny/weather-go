@@ -2,7 +2,7 @@
   <configuration default="false" name="Test" type="GoTestRunConfiguration" factoryName="Go Test">
     <module name="weather-go" />
     <working_directory value="$PROJECT_DIR$" />
-    <go_parameters value="-v -cover" />
+    <go_parameters value="-cover" />
     <kind value="DIRECTORY" />
     <package value="github.com/jkuny/weather-go" />
     <directory value="$PROJECT_DIR$" />

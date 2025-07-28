@@ -1,4 +1,4 @@
-package open_meteo
+package model
 
 import (
 	"fmt"
@@ -31,7 +31,7 @@ func DisplayForecast(forecast Forecast, numberOfDays string) {
 	fmt.Printf("Forecast for the next %s day(s):\n", numberOfDays)
 	for i := range forecast.Hourly.Time {
 		fmt.Printf("     %v --- %.1f %s --- %v%% \n",
-			convertTime(forecast.Hourly.Time[i]+" "+forecast.TimezoneAbbrev),
+			ConvertTime(forecast.Hourly.Time[i])+" "+forecast.Timezone,
 			forecast.Hourly.Temperature[i],
 			forecast.HourlyUnits.TemperatureUnits,
 			forecast.Hourly.PrecipitationProbability[i],
@@ -39,19 +39,20 @@ func DisplayForecast(forecast Forecast, numberOfDays string) {
 	}
 }
 
-func convertTime(timeStr string) string {
-	layout := "2006-01-02T15:04 MST"
+// ConvertTime to change the time format to something more readable
+func ConvertTime(timeStr string) string {
+	layout := "2006-01-02T15:04"
 	parsedTime, err := time.Parse(layout, timeStr)
 	if err != nil {
 		fmt.Printf("Error parsing time: %v\n", err)
 		return ""
 	}
 
-	estLocation, err := time.LoadLocation("America/New_York")
-	if err != nil {
-		fmt.Printf("Error loading EST timezone: %v\n", err)
-		return ""
+	// Prepend a 0 if the time is =6 to keep things uniform
+	kitchen := parsedTime.Format(time.Kitchen)
+	if len(kitchen) == 6 {
+		return "0" + kitchen
+	} else {
+		return kitchen
 	}
-
-	return parsedTime.In(estLocation).Format(layout)
 }
