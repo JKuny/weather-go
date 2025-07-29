@@ -25,16 +25,17 @@ in multiple locations via multiple APIs.`,
 		defaultLatitude := viper.GetString("app.default-location.latitude")
 		defaultLongitude := viper.GetString("app.default-location.longitude")
 		defaultNumberOfDays := "1"
+		defaultDatasource := "OpenMeteo"
 
 		if defaultLatitude == "" || defaultLongitude == "" {
 			log.Fatal("Latitude/Longitude not configured.")
 		}
 
-		fmt.Println("---- OpenMeteo -----------------------------")
+		fmt.Printf("---- %s -----------------------------\n", defaultDatasource)
 		fmt.Printf("Getting weather for %s/%s...\n", defaultLatitude, defaultLongitude)
 		body, err := open_meteo.GetForecast(defaultLatitude, defaultLongitude, defaultNumberOfDays)
 		if err != nil {
-			log.Fatalf("Error while getting weather from OpenMeteo: %s", err)
+			log.Fatalf("Error while getting weather from %s: %s", defaultDatasource, err)
 		}
 
 		weather, err := open_meteo.ParseData(body)

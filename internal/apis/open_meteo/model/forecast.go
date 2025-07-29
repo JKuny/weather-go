@@ -2,7 +2,7 @@ package model
 
 import (
 	"fmt"
-	"time"
+	"github.com/jkuny/weather-go/internal/display"
 )
 
 type Forecast struct {
@@ -29,30 +29,13 @@ type Forecast struct {
 func DisplayForecast(forecast Forecast, numberOfDays string) {
 	fmt.Printf("Elevation: %v \n", forecast.Elevation)
 	fmt.Printf("Forecast for the next %s day(s):\n", numberOfDays)
+	fmt.Printf("%s -> %s\n", display.FormatDate(forecast.Hourly.Time[0]), display.FormatDate(forecast.Hourly.Time[len(forecast.Hourly.Time)-1]))
 	for i := range forecast.Hourly.Time {
 		fmt.Printf("     %v --- %.1f %s --- %v%% \n",
-			ConvertTime(forecast.Hourly.Time[i])+" "+forecast.Timezone,
+			display.FormatTime(forecast.Hourly.Time[i])+" "+forecast.Timezone,
 			forecast.Hourly.Temperature[i],
 			forecast.HourlyUnits.TemperatureUnits,
 			forecast.Hourly.PrecipitationProbability[i],
 		)
-	}
-}
-
-// ConvertTime to change the time format to something more readable
-func ConvertTime(timeStr string) string {
-	layout := "2006-01-02T15:04"
-	parsedTime, err := time.Parse(layout, timeStr)
-	if err != nil {
-		fmt.Printf("Error parsing time: %v\n", err)
-		return ""
-	}
-
-	// Prepend a 0 if the time is =6 to keep things uniform
-	kitchen := parsedTime.Format(time.Kitchen)
-	if len(kitchen) == 6 {
-		return "0" + kitchen
-	} else {
-		return kitchen
 	}
 }
