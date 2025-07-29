@@ -14,7 +14,7 @@ import (
 )
 
 // Declare variables to hold names of data to retrieve
-var (
+const (
 	temperature_2m            = "temperature_2m"
 	precipitation_probability = "precipitation_probability"
 	weather_code              = "weather_code"
@@ -23,7 +23,7 @@ var (
 	timezone                  = "EST"
 )
 
-var baseUrl = "https://api.open-meteo.com/v1/forecast"
+const baseUrl = "https://api.open-meteo.com/v1/forecast"
 
 // GetForecast Gets the current weather forecast for the next two minutes
 func GetForecast(latitude string, longitude string, numberOfDays string) (string, error) {
