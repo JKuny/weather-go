@@ -1,6 +1,9 @@
-package model
+package model_test
 
-import "testing"
+import (
+	"github.com/jkuny/weather-go/internal/apis/open_meteo/model"
+	"testing"
+)
 
 const expectedError = "Expected error, got nil"
 
@@ -10,7 +13,7 @@ var expectedCodes = [...]int{
 
 func TestValidWeatherCodes(t *testing.T) {
 	for i := range expectedCodes {
-		got := WeatherConditionsMap[expectedCodes[i]].Description
+		got := model.WeatherConditionsMap[expectedCodes[i]].Description
 		if got == "" {
 			t.Errorf(expectedError)
 		}
@@ -19,7 +22,7 @@ func TestValidWeatherCodes(t *testing.T) {
 
 // TestInvalidWeatherCodes a code that isn't in the list should return nothing
 func TestInvalidWeatherCodes(t *testing.T) {
-	got := WeatherConditionsMap[1000].Description
+	got := model.WeatherConditionsMap[1000].Description
 	if got != "" {
 		t.Errorf(expectedError)
 	}
