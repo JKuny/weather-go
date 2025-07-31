@@ -32,11 +32,11 @@ func DisplayForecast(forecast Forecast, numberOfDays string) {
 	fmt.Printf("Forecast for the next %s day(s):\n", numberOfDays)
 	fmt.Printf("%s -> %s\n", display.FormatDate(forecast.Hourly.Time[0]), display.FormatDate(forecast.Hourly.Time[len(forecast.Hourly.Time)-1]))
 	for i := range forecast.Hourly.Time {
-		fmt.Printf("     %v --- %.1f %s --- %v%% --- %v \n",
+		fmt.Printf("     %v --- %.1f %s --- %v --- %v \n",
 			display.FormatTime(forecast.Hourly.Time[i])+" "+forecast.Timezone,
 			forecast.Hourly.Temperature[i],
 			forecast.HourlyUnits.TemperatureUnits,
-			forecast.Hourly.PrecipitationProbability[i],
+			display.FormatPercentage(forecast.Hourly.PrecipitationProbability[i]),
 			WeatherConditionsMap[forecast.Hourly.WeatherCode[i]].Description,
 		)
 	}

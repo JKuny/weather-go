@@ -46,3 +46,11 @@ func FormatDate(timeStr string) string {
 
 	return parsedTime.Format(time.DateOnly)
 }
+
+func FormatPercentage(percentage float64) string {
+	if percentage < 10 {
+		return fmt.Sprintf("0%v%%", percentage)
+	} else {
+		return fmt.Sprintf("%v%%", percentage)
+	}
+}
