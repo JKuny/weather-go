@@ -2,6 +2,8 @@
 
 A basic CLI weather application. Allows for using multiple sources.
 
+![A terminal screenshot of the weather-go application](img.png)
+
 ## Usage
 
 ```shell
