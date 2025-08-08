@@ -1,8 +1,9 @@
 package display_test
 
 import (
-	"github.com/jkuny/weather-go/internal/display"
 	"testing"
+
+	"github.com/jkuny/weather-go/internal/display"
 )
 
 const (

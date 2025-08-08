@@ -1,8 +1,9 @@
 package model_test
 
 import (
-	"github.com/jkuny/weather-go/internal/apis/open_meteo/model"
 	"testing"
+
+	"github.com/jkuny/weather-go/internal/apis/open_meteo/model"
 )
 
 const expectedError = "Expected error, got nil"

@@ -7,9 +7,10 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/jkuny/weather-go/internal/apis/open_meteo/model"
 	"log"
 	"os"
+
+	"github.com/jkuny/weather-go/internal/apis/open_meteo/model"
 
 	"github.com/jkuny/weather-go/internal/apis/open_meteo"
 	"github.com/spf13/cobra"

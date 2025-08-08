@@ -6,11 +6,12 @@ package open_meteo
 
 import (
 	"encoding/json"
-	"github.com/jkuny/weather-go/internal/apis/open_meteo/model"
 	"io"
 	"log"
 	"net/http"
 	"net/url"
+
+	"github.com/jkuny/weather-go/internal/apis/open_meteo/model"
 )
 
 // Declare variables to hold names of data to retrieve
